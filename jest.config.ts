@@ -1,4 +1,4 @@
-import type {Config} from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   preset: "jest-preset-angular",
@@ -31,10 +31,15 @@ const config: Config = {
   coverageDirectory: '<rootDir>/coverage/',
   reporters: [
     'default',
-    ['jest-junit', { outputDirectory: './reports/junit', outputName: 'junit.xml' }],
+    ['jest-junit',
+      {
+        outputDirectory: '<rootDir>/coverage/junit',
+        outputName: 'junit.xml'
+      }
+    ],
     ['jest-html-reporter', {
       pageTitle: 'Test Report',
-      outputPath: './reports/test-report.html',
+      outputPath: '<rootDir>/coverage/html/test-report.html',
       includeFailureMsg: true,
       includeConsoleLog: true
     }]
