@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="2.64">
+  <testsuite name="BirthdayService" errors="0" failures="0" skipped="0" timestamp="2024-10-23T23:27:03" time="2.224" tests="9">
+    <testcase classname="BirthdayService should be created" name="BirthdayService should be created" time="0.016">
+    </testcase>
+    <testcase classname="BirthdayService should calculate age correctly" name="BirthdayService should calculate age correctly" time="0.017">
+    </testcase>
+    <testcase classname="BirthdayService should generate reversed name anagram" name="BirthdayService should generate reversed name anagram" time="0.003">
+    </testcase>
+    <testcase classname="BirthdayService should generate syllable coesions" name="BirthdayService should generate syllable coesions" time="0.002">
+    </testcase>
+    <testcase classname="BirthdayService should return name info" name="BirthdayService should return name info" time="0.003">
+    </testcase>
+    <testcase classname="BirthdayService should return correct zodiac sign for a given date" name="BirthdayService should return correct zodiac sign for a given date" time="0.002">
+    </testcase>
+    <testcase classname="BirthdayService should return correct season for a given date" name="BirthdayService should return correct season for a given date" time="0.001">
+    </testcase>
+    <testcase classname="BirthdayService should correctly identify leap years" name="BirthdayService should correctly identify leap years" time="0.001">
+    </testcase>
+    <testcase classname="BirthdayService should return correct Chinese zodiac sign for a given year" name="BirthdayService should return correct Chinese zodiac sign for a given year" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>

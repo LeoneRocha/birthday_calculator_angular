@@ -37,6 +37,8 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^18.18.0",
     "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2",
+    "jest-junit": "^16.0.0",
     "jest-preset-angular": "^14.2.4",
     "karma-coverage": "~2.2.0",
     "ts-jest": "^29.2.5",
