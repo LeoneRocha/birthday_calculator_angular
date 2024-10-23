@@ -11,7 +11,7 @@ ng generate service services/birthday
 
 
 https://dev.to/brunoromeiro/angular-com-jest-5enn
-
+https://pt.linkedin.com/pulse/configura%C3%A7%C3%A3o-do-jest-angular-em-5-passos-lucas-favareto-santos-u72jf --- 2024
 
 
 
