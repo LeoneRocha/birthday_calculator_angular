@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nome:</label>
+          <input id="name" class="form-control" formControlName="name" required>
+        </div>
+        <div class="form-group">
+          <label for="birthdate">Data de Nascimento:</label>
+          <input id="birthdate" type="date" class="form-control" formControlName="birthdate" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-3">Calcular</button>
+      </form>
+      <div *ngIf="result" class="mt-4">
+        <p><strong>Idade:</strong> {{ result.age }} anos</p>
+        <p><strong>Dias até o próximo aniversário:</strong> {{ result.daysUntilBirthday }}</p>
+        <p><strong>Horas até o próximo aniversário:</strong> {{ result.hoursUntilBirthday }}</p>
+        <p><strong>Próximo Aniversário:</strong> {{ result.nextBirthday | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Signo:</strong> {{ result.zodiacSign }}</p>
+        <p><strong>Dias Vividos:</strong> {{ result.daysLived }}</p>
+        <p><strong>Dia da Semana:</strong> {{ result.dayOfWeek }}</p>
+        <p><strong>Estação do Ano:</strong> {{ result.season }}</p>
+        <p><strong>Ano Bissexto:</strong> {{ result.isLeapYear ? 'Sim' : 'Não' }}</p>
+        <p><strong>Horóscopo Chinês:</strong> {{ result.chineseZodiac }}</p>
+        <p><strong>Numerologia:</strong> {{ result.numerology }}</p>
+        <p><strong>Anagramas:</strong> {{ result.anagrams.join(', ') }}</p>
+        <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>
+      </div>
+    </div>
+  </div>
+</div>

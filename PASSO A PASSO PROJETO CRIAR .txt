@@ -1,0 +1,225 @@
+npm install -g @angular/cli
+
+ng new birthdaycalculator --no-standalone
+ 
+cd birthdaycalculator
+
+ng generate component components/birthday-form
+
+
+ng generate service services/birthday
+
+
+
+
+
+
+
+
+
+
+
+Claro! Vamos criar um projeto Angular que inclui um formulário para coletar o nome e a data de nascimento de uma pessoa, calcular a idade, os dias restantes para o próximo aniversário e um contador regressivo. Também vamos seguir as melhores práticas e incluir testes unitários com Karma, Jasmine e Jest.
+
+### Passo a Passo
+
+#### 1. Configuração Inicial do Projeto
+1. **Instale o Angular CLI** (se ainda não tiver):
+   ```bash
+   npm install -g @angular/cli
+   ```
+
+2. **Crie um novo projeto Angular**:
+   ```bash
+   ng new birthday-calculator
+   cd birthday-calculator
+   ```
+
+3. **Adicione os módulos necessários**:
+   ```bash
+   ng add @angular/material
+   npm install rxjs
+   ```
+
+#### 2. Estrutura do Projeto
+1. **Crie um componente para o formulário**:
+   ```bash
+   ng generate component birthday-form
+   ```
+
+2. **Crie um serviço para cálculos**:
+   ```bash
+   ng generate service services\birthday
+   ```
+
+#### 3. Implementação do Formulário
+1. **birthday-form.component.html**:
+   ```html
+   <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
+     <mat-form-field>
+       <mat-label>Nome</mat-label>
+       <input matInput formControlName="name" required>
+     </mat-form-field>
+     <mat-form-field>
+       <mat-label>Data de Nascimento</mat-label>
+       <input matInput [matDatepicker]="picker" formControlName="birthdate" required>
+       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+       <mat-datepicker #picker></mat-datepicker>
+     </mat-form-field>
+     <button mat-raised-button type="submit">Calcular</button>
+   </form>
+   <div *ngIf="result">
+     <p>Idade: {{ result.age }} anos</p>
+     <p>Dias até o próximo aniversário: {{ result.daysUntilBirthday }}</p>
+     <p>Horas até o próximo aniversário: {{ result.hoursUntilBirthday }}</p>
+     <p>Contagem regressiva: {{ countdown }}</p>
+   </div>
+   ```
+
+2. **birthday-form.component.ts**:
+   ```typescript
+   import { Component, OnInit } from '@angular/core';
+   import { FormBuilder, FormGroup } from '@angular/forms';
+   import { BirthdayService } from '../birthday.service';
+   import { interval } from 'rxjs';
+   import { map } from 'rxjs/operators';
+
+   @Component({
+     selector: 'app-birthday-form',
+     templateUrl: './birthday-form.component.html',
+     styleUrls: ['./birthday-form.component.css']
+   })
+   export class BirthdayFormComponent implements OnInit {
+     birthdayForm: FormGroup;
+     result: any;
+     countdown: string;
+
+     constructor(private fb: FormBuilder, private birthdayService: BirthdayService) {}
+
+     ngOnInit(): void {
+       this.birthdayForm = this.fb.group({
+         name: [''],
+         birthdate: ['']
+       });
+     }
+
+     onSubmit(): void {
+       const { name, birthdate } = this.birthdayForm.value;
+       this.result = this.birthdayService.calculateAgeAndBirthday(birthdate);
+       this.startCountdown(this.result.nextBirthday);
+     }
+
+     startCountdown(nextBirthday: Date): void {
+       interval(1000).pipe(
+         map(() => {
+           const now = new Date();
+           const timeDiff = nextBirthday.getTime() - now.getTime();
+           const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+           const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+           const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+           this.countdown = `${hours}h ${minutes}m ${seconds}s`;
+         })
+       ).subscribe();
+     }
+   }
+   ```
+
+3. **birthday.service.ts**:
+   ```typescript
+   import { Injectable } from '@angular/core';
+
+   @Injectable({
+     providedIn: 'root'
+   })
+   export class BirthdayService {
+     calculateAgeAndBirthday(birthdate: Date): any {
+       const today = new Date();
+       const birth = new Date(birthdate);
+       let age = today.getFullYear() - birth.getFullYear();
+       const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+
+       if (today > nextBirthday) {
+         nextBirthday.setFullYear(today.getFullYear() + 1);
+       }
+
+       const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+       const hoursUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60));
+
+       return { age, daysUntilBirthday, hoursUntilBirthday, nextBirthday };
+     }
+   }
+   ```
+
+#### 4. Testes Unitários
+1. **Instale Jest**:
+   ```bash
+   ng add @briebug/jest-schematic
+   ```
+
+2. **birthday-form.component.spec.ts**:
+   ```typescript
+   import { ComponentFixture, TestBed } from '@angular/core/testing';
+   import { ReactiveFormsModule } from '@angular/forms';
+   import { MatInputModule } from '@angular/material/input';
+   import { MatDatepickerModule } from '@angular/material/datepicker';
+   import { BirthdayFormComponent } from './birthday-form.component';
+   import { BirthdayService } from '../birthday.service';
+
+   describe('BirthdayFormComponent', () => {
+     let component: BirthdayFormComponent;
+     let fixture: ComponentFixture<BirthdayFormComponent>;
+
+     beforeEach(async () => {
+       await TestBed.configureTestingModule({
+         declarations: [ BirthdayFormComponent ],
+         imports: [ ReactiveFormsModule, MatInputModule, MatDatepickerModule ],
+         providers: [ BirthdayService ]
+       })
+       .compileComponents();
+     });
+
+     beforeEach(() => {
+       fixture = TestBed.createComponent(BirthdayFormComponent);
+       component = fixture.componentInstance;
+       fixture.detectChanges();
+     });
+
+     it('should create', () => {
+       expect(component).toBeTruthy();
+     });
+
+     it('should calculate age and birthday correctly', () => {
+       component.birthdayForm.setValue({ name: 'Test', birthdate: new Date(2000, 0, 1) });
+       component.onSubmit();
+       expect(component.result.age).toBeGreaterThan(0);
+       expect(component.result.daysUntilBirthday).toBeGreaterThan(0);
+     });
+   });
+   ```
+
+#### 5. Melhores Práticas
+1. **Organize seu projeto por funcionalidades**⁶.
+2. **Use serviços para lógica de negócios**⁵.
+3. **Utilize trackBy em ngFor** para melhorar a performance¹.
+4. **Declare variáveis com const e let** conforme apropriado¹.
+
+Seguindo esses passos, você terá um projeto Angular bem estruturado, com um formulário funcional e testes unitários configurados. Se precisar de mais alguma coisa, estou aqui para ajudar!
+
+Fonte: conversa com o Copilot, 21/10/2024
+(1) Estrutura angular do projeto: práticas recomendadas para ... - COMPRACO. https://bing.com/search?q=estrutura+projeto+angular+melhores+praticas.
+(2) Guia para Iniciantes em Angular: Primeiros Passos e Melhores Práticas. https://www.dio.me/articles/guia-para-iniciantes-em-angular-primeiros-passos-e-melhores-praticas.
+(3) Melhores práticas para uma aplicação em Angular limpa e de elevado .... https://www.freecodecamp.org/portuguese/news/melhores-praticas-para-uma-aplicacao-em-angular-limpa-e-de-elevado-desempenho/.
+(4) Guia de boas práticas para projetos em Angular - Locaweb. https://www.locaweb.com.br/blog/temas/codigo-aberto/angular-conheca-boas-praticas-de-arquitetura-de-software/.
+(5) Estrutura angular do projeto: práticas recomendadas para ... - COMPRACO. https://bing.com/search?q=melhores+praticas+projeto+angular.
+(6) GitHub - andrewarosario/angular-padroes-e-boas-praticas: Projeto de .... https://github.com/andrewarosario/angular-padroes-e-boas-praticas.
+(7) Como estruturar sua aplicação Angular? - DEV Community. https://dev.to/godoi/como-estruturar-sua-aplicacao-angular-26pg.
+(8) Estrutura angular do projeto: práticas recomendadas para ... - COMPRACO. https://compraco.com.br/blogs/tecnologia-e-desenvolvimento/estrutura-angular-do-projeto-praticas-recomendadas-para-arquivos-e-pastas.
+(9) Como criar formulários - Angular para iniciantes. https://www.youtube.com/watch?v=lD0Jj4N5hvs.
+(10) Curso Angular #90: Formulários reativos: Criando um form com código Angular. https://www.youtube.com/watch?v=931fynCdTKw.
+(11) 🔴 PARTE #1 ¿Cómo crear FORMULARIOS REACTIVOS en Angular? 😆 CURSO 𝐀𝐍𝐆𝐔𝐋𝐀𝐑. https://www.youtube.com/watch?v=x5E9CQh9w_U.
+(12) Implementar um cronômetro de contagem regressiva com RxJS em Angular. https://ichi.pro/pt/implementar-um-cronometro-de-contagem-regressiva-com-rxjs-em-angular-61928900284064.
+(13) Angular CLI: Como criar e executar um projeto Angular - DevMedia. https://www.devmedia.com.br/angular-cli-como-criar-e-executar-um-projeto-angular/38246.
+(14) GitHub - Edilson591/Contador_para_aniversario: Este projeto é um .... https://github.com/Edilson591/Contador_para_aniversario.
+(15) github.com. https://github.com/DragonOsman/countdown-timer-app/tree/0c257c1ea2a228b0878fb9929601ff1ce17a04ba/scripts%2Fscript.js.
+(16) github.com. https://github.com/adamhazon/resume/tree/b5f9eb21e2fa4861778d1929847f6a1c2e224678/src%2Fapp%2Fcomponents%2Froles%2Fadd-or-edit-dialog%2Fadd-or-edit-dialog.component.spec.ts.
+(17) github.com. https://github.com/bariudin777/EventApp/tree/284aef49e02f842f4442e0969d3ee81e734cce94/front-end%2Fsrc%2Fapp%2Fevent%2Fnew-event%2Fforms%2Fbirthday-form%2Fbirthday-form.component.spec.ts.
