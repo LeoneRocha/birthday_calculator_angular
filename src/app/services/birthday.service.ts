@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { interval, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class BirthdayService {
     const anagrams = this.generateAnagrams(name);
     const nameInfo = this.getNameInfo(name);
 
-    return { birthDate: birthUTC, age, daysUntilBirthday, hoursUntilBirthday, nextBirthday, zodiacSign, daysLived, dayOfWeek, season, isLeapYear, chineseZodiac, numerology, anagrams, nameInfo };
+    return { birthDate: birthUTC, age, daysUntilBirthday, hoursUntilBirthday, nextBirthday, zodiacSign, daysLived, dayOfWeek, season, isLeapYear, chineseZodiac, numerology, anagrams, nameInfo, countdown$: this.startCountdown(birthUTC) };
   }
 
   calculateNumerology(name: string): number {
@@ -133,4 +134,23 @@ export class BirthdayService {
     return animals[(index + 12) % 12]; // Adiciona 12 para garantir um índice positivo
   }
 
+  startCountdown(birthdate: Date): Observable<string> {
+    return interval(1000).pipe(
+      map(() => {
+        const now = new Date();
+        let nextBirthday = new Date(now.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+
+        // Se o próximo aniversário já passou neste ano, ajuste para o próximo ano
+        if (now > nextBirthday) {
+          nextBirthday.setFullYear(now.getFullYear() + 1);
+        }
+        const timeDiff = nextBirthday.getTime() - now.getTime();
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      })
+    );
+  }
 }

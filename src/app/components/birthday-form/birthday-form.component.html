@@ -14,9 +14,9 @@
       </form>
       <div *ngIf="result" class="mt-4">
         <p><strong>Idade:</strong> {{ result.age }} anos</p>
-        <p><strong>Contagem Regressiva:</strong> {{ countdown }}</p>
+        <p><strong>Contagem Regressiva:</strong> {{ countdown$ | async }}</p>
         <p><strong>Dias até o próximo aniversário:</strong> {{ result.daysUntilBirthday }}</p>
-        <p><strong>Horas até o próximo aniversário:</strong> {{ result.hoursUntilBirthday }}</p>        
+        <p><strong>Horas até o próximo aniversário:</strong> {{ result.hoursUntilBirthday }}</p>
         <p><strong>Próximo Aniversário:</strong> {{ result.nextBirthday | date: 'dd/MM/yyyy' }}</p>
         <p><strong>Signo:</strong> {{ result.zodiacSign }}</p>
         <p><strong>Dias Vividos:</strong> {{ result.daysLived }}</p>
@@ -26,7 +26,7 @@
         <p><strong>Horóscopo Chinês:</strong> {{ result.chineseZodiac }}</p>
         <p><strong>Numerologia:</strong> {{ result.numerology }}</p>
         <p><strong>Anagramas:</strong> {{ result.anagrams.join(', ') }}</p>
-        <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>        
+        <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>
       </div>
     </div>
   </div>
