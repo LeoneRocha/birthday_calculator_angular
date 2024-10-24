@@ -26,18 +26,26 @@ export class BirthdayFormComponent implements OnInit {
   onSubmit(): void {
     const { name, birthdate } = this.birthdayForm.value;
     this.result = this.birthdayService.calculateAgeAndBirthday(name, birthdate);
-    this.startCountdown(this.result.nextBirthday);
+    this.startCountdown(this.result.birthDate);
   }
 
-  startCountdown(nextBirthday: Date): void {
+  startCountdown(birthdate: Date): void {
     interval(1000).pipe(
       map(() => {
         const now = new Date();
+        let nextBirthday = new Date(now.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+
+        // Se o próximo aniversário já passou neste ano, ajuste para o próximo ano
+        if (now > nextBirthday) {
+          nextBirthday.setFullYear(now.getFullYear() + 1);
+        }
+
         const timeDiff = nextBirthday.getTime() - now.getTime();
-        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-        this.countdown = `${hours}h ${minutes}m ${seconds}s`;
+        this.countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
       })
     ).subscribe();
   }
