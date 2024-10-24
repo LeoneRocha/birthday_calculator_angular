@@ -5,10 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class BirthdayService {
 
-  calculateAgeAndBirthday(name: string, birthdate: Date): any {
+  calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
+    // Verifica se birthdate é uma instância de Date, caso contrário, converte
+    const birth = birthdate instanceof Date ? birthdate : new Date(birthdate);
+    
+    if (isNaN(birth.getTime())) {
+      throw new Error('Invalid birthdate');
+    }
+  
     const today = new Date();
-    const birth = new Date(Date.UTC(birthdate.getUTCFullYear(), birthdate.getUTCMonth(), birthdate.getUTCDate()));
-    let age = today.getUTCFullYear() - birth.getUTCFullYear();
+    const birthUTC = new Date(Date.UTC(birth.getUTCFullYear(), birth.getUTCMonth(), birth.getUTCDate()));
+    let age = today.getUTCFullYear() - birthUTC.getUTCFullYear();
     const nextBirthday = new Date(Date.UTC(today.getUTCFullYear(), birth.getUTCMonth(), birth.getUTCDate()));
   
     if (today > nextBirthday) {
@@ -17,12 +24,12 @@ export class BirthdayService {
   
     const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
     const hoursUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60));
-    const daysLived = Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24));
-    const dayOfWeek = birth.toLocaleDateString('pt-BR', { weekday: 'long', timeZone: 'UTC' });
-    const season = this.getSeason(birth);
-    const isLeapYear = this.isLeapYear(birth.getUTCFullYear());
-    const chineseZodiac = this.getChineseZodiac(birth.getUTCFullYear());
-    const zodiacSign = this.getZodiacSign(birth);
+    const daysLived = Math.floor((today.getTime() - birthUTC.getTime()) / (1000 * 60 * 60 * 24));
+    const dayOfWeek = birthUTC.toLocaleDateString('pt-BR', { weekday: 'long', timeZone: 'UTC' });
+    const season = this.getSeason(birthUTC);
+    const isLeapYear = this.isLeapYear(birthUTC.getUTCFullYear());
+    const chineseZodiac = this.getChineseZodiac(birthUTC.getUTCFullYear());
+    const zodiacSign = this.getZodiacSign(birthUTC);
     const numerology = this.calculateNumerology(name);
     const anagrams = this.generateAnagrams(name);
     const nameInfo = this.getNameInfo(name);
