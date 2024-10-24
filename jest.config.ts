@@ -34,7 +34,7 @@ const config: Config = {
     ['jest-junit',
       {
         outputDirectory: '<rootDir>/coverage/junit',
-        outputName: 'junit.xml'
+        outputName: 'test-results.xml'
       }
     ],
     ['jest-html-reporter', {
