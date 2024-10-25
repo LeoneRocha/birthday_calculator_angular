@@ -1,0 +1,12 @@
+name: birthdaycalculatorproject
+services:
+  birthdaycalculatorservice: 
+    image:  leonecr/birthdaycalculator:latest
+    container_name:  birthdaycalculator_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+       - "80:80" 
+       - "4200:4200"
+    restart: always
