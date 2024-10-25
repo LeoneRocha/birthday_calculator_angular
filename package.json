@@ -8,7 +8,9 @@
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "serve:ssr:birthdaycalculator": "node dist/birthdaycalculator/server/server.mjs"
+    "serve:ssr:birthdaycalculator": "node dist/birthdaycalculator/server/server.mjs",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start:server": "node dist/server.js"
   },
   "private": true,
   "dependencies": {

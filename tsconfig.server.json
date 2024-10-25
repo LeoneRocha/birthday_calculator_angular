@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "module": "esnext",
+      "target": "ES2022",
+      "outDir": "./dist",
+      "rootDir": "./",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "moduleResolution": "node"  // Adicione esta linha
+    },
+    "include": ["server.ts"]
+  }
+  
