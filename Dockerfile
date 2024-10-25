@@ -2,17 +2,19 @@
 FROM node:20 as node
  
 # Create a directory for the app
-WORKDIR /src/app
-# Copy the rest of the app files to the app directory
-COPY . .
-
+WORKDIR /app
+ 
 # Copie o package.json e o package-lock.json para o diretório de trabalho
 COPY package*.json ./
 
 # Install the app dependencies
-RUN npm install --force -g @angular/cli
+RUN npm instal -g @angular/cli
+  
 RUN npm install 
 #RUN npm install --force  @angular-builders/custom-webpack 
+ 
+# Copy the rest of the app files to the app directory
+COPY . .
 
 #environment
 # Define o valor padrão para NODE_ENV

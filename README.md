@@ -29,3 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## docker build -t birthdaycalculator .
 
 birthday_calculator_angular
+
+
+docker run -p 4202:4202 birthdaycalculator
