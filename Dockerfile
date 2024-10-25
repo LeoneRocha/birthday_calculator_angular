@@ -27,6 +27,9 @@ ENV NODE_ENV=$NODE_ENV
 # Build the app for production
 RUN npm run build:prod
 
+# Compile o TypeScript para JavaScript
+RUN npm run build:server
+
 ### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação *  based on Nginx, to have only the compiled app, ready for production with Nginx
 #FROM nginx:latest 
 ## Skip this if you are using kubernetes config map 
@@ -39,4 +42,5 @@ EXPOSE 4200
 #CMD ["nginx", "-g", "daemon off;"]
 
 # Comando para iniciar o servidor Express
-CMD ["node", "server.js"]
+CMD ["node", "dist/server.js"]
+
