@@ -1,6 +1,8 @@
 {
   "name": "birthdaycalculator",
-  "version": "0.0.0",
+  "version": "2024.10.26",
+  "main": "dist/birthdaycalculator/server/server.mjs",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +12,7 @@
     "test": "jest",
     "serve:ssr:birthdaycalculator": "node dist/birthdaycalculator/server/server.mjs",
     "build:server": "tsc -p tsconfig.server.json",
-    "start:server": "node dist/server.js"
+    "start:server": "node dist/birthdaycalculator/server/server.mjs"
   },
   "private": true,
   "dependencies": {

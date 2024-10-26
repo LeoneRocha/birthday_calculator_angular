@@ -1,14 +1,15 @@
 {
-    "compilerOptions": {
-      "module": "esnext",
-      "target": "ES2022",
-      "outDir": "./dist",
-      "rootDir": "./",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "moduleResolution": "node"  // Adicione esta linha
-    },
-    "include": ["server.ts"]
-  }
-  
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "ES2022",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "include": ["server.ts", "server.mjs"]
+}

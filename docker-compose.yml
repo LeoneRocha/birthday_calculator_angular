@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-       - "80:80" 
-       - "4200:4200"
+       - "8083:80" # Mapeia a porta 8083 do  host  para a porta 8083 do contêiner ???.
+       - "8084:4200" 
+       - "4200:4200"    
+       - "4000:4000"    
     restart: always
