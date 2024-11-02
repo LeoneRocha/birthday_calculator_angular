@@ -12,14 +12,18 @@ export class BirthdayFormComponent implements OnInit {
   result: any;
   countdown$: Observable<string> = new Observable<string>();
 
-  constructor(private fb: FormBuilder, private birthdayService: BirthdayService) {
+  constructor(private readonly fb: FormBuilder, private readonly birthdayService: BirthdayService) {
     this.birthdayForm = this.fb.group({
       name: [''],
       birthdate: ['']
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    console.log('called OnInit');
+
+  }
 
   onSubmit(): void {
     const { name, birthdate } = this.birthdayForm.value;
