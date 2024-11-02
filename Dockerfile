@@ -31,16 +31,17 @@ RUN npm run build:prod
 RUN npm run build:server
 
 ### ESTÁGIO 2: Executar ###   2 - Responsável por expor nossa aplicação *  based on Nginx, to have only the compiled app, ready for production with Nginx
-#FROM nginx:latest 
+FROM nginx:latest 
 ## Skip this if you are using kubernetes config map 
-#COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 ## From ‘builder’ stage copy over the artifacts in dist folder to default nginx public folder
-#COPY --from=node /app/dist/birthdaycalculator /usr/share/nginx/html  
+COPY --from=node /app/dist/birthdaycalculator/browser /usr/share/nginx/html  
+
 EXPOSE 80  
 EXPOSE 4200 
 EXPOSE 4000 
 ## Serve
-#CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
 
 # Comando para iniciar o servidor Express
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
