@@ -2,8 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <h1>Calculadora de Informações Pessoais</h1>
-      <p>Utilize este formulário para obter várias informações sobre sua data de nascimento, como idade, signo, estação
-        do ano, entre outras.</p>
+      <p>Utilize este formulário para obter várias informações sobre sua data de nascimento, como idade, signo, estação do ano, entre outras.</p>
 
       <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
@@ -40,4 +39,7 @@
       <app-server-info></app-server-info>
     </div>
   </div>
+  <footer class="text-center mt-5">
+    <p>&copy;{{ currentYear }} - Versão:{{ appVersion }}</p>
+  </footer>
 </div>
