@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Nome:</label>
@@ -28,6 +28,11 @@
         <p><strong>Anagramas:</strong> {{ result.anagrams.join(', ') }}</p>
         <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>
       </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <app-server-info></app-server-info>
     </div>
   </div>
 </div>

@@ -28,6 +28,8 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.10",
+    "@ng-icons/core": "^29.6.1",
+    "@ng-icons/simple-icons": "^29.6.1",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
