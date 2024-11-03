@@ -64,11 +64,8 @@ export class BirthdayService {
     const syllableCoesions = this.getSyllableCoesions(name);
     return [reversedName, ...syllableCoesions];
   }
-  getSyllableCoesions(name: string): string[] {
-    // Função simples para dividir o nome em sílabas e reorganizá-las
-    const vowels = /[aeiou]+/gi;
-    const consonants = /[^aeiou]+/gi;
-    const syllables = name.split(/[aeiou]*[^aeiou]+/gi).filter(s => s);
+  getSyllableCoesions(name: string): string[] { 
+    const syllables = name.split(/[^aeiou]/gi).filter(s => s);
     const coesions: string[] = [];
 
     const generate = (prefix: string, remaining: string[]) => {
