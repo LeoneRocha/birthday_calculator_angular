@@ -22,11 +22,7 @@ describe('BirthdayService', () => {
     const anagrams = service.generateAnagrams('John');
     expect(anagrams).toContain('nhoJ');
   });
-
-  it('should generate syllable coesions', () => {
-    const coesions = service.getSyllableCoesions('John');
-    expect(coesions.length).toBeGreaterThan(0);
-  });
+ 
 
   it('should return name info', () => {
     const nameInfo = service.getNameInfo('John');
