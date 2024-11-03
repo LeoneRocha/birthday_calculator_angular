@@ -32,6 +32,9 @@
         <p><strong>Anagramas:</strong> {{ result.anagrams.join(', ') }}</p>
         <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>
       </div>
+
+      <!-- Adicione o componente HoroscopeComponent aqui -->
+      <app-horoscope *ngIf="result" [sign]="result.zodiacSign"></app-horoscope>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -40,6 +43,6 @@
     </div>
   </div>
   <footer class="text-center mt-5">
-    <p><strong>&copy;</strong>{{ currentYear }} -<strong> Versão:</strong> {{ appVersion }}</p>
+    <p><strong>©</strong>{{ currentYear }} -<strong> Versão:</strong> {{ appVersion }}</p>
   </footer>
 </div>

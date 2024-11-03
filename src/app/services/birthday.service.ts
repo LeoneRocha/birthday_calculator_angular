@@ -9,12 +9,10 @@ export class BirthdayService {
 
   calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
     // Verifica se birthdate é uma instância de Date, caso contrário, converte
-    const birth = birthdate instanceof Date ? birthdate : new Date(birthdate);
-
+    const birth = birthdate instanceof Date ? birthdate : new Date(birthdate); 
     if (isNaN(birth.getTime())) {
       throw new Error('Invalid birthdate');
-    }
-
+    } 
     const today = new Date();
     const birthUTC = new Date(Date.UTC(birth.getUTCFullYear(), birth.getUTCMonth(), birth.getUTCDate()));
     let age = today.getUTCFullYear() - birthUTC.getUTCFullYear();
@@ -23,7 +21,6 @@ export class BirthdayService {
     if (today > nextBirthday) {
       nextBirthday.setUTCFullYear(today.getUTCFullYear() + 1);
     }
-
     const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
     const hoursUntilBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60));
     const daysLived = Math.floor((today.getTime() - birthUTC.getTime()) / (1000 * 60 * 60 * 24));
@@ -35,7 +32,6 @@ export class BirthdayService {
     const numerology = this.calculateNumerology(name);
     const anagrams = this.generateAnagrams(name);
     const nameInfo = this.getNameInfo(name);
-
     return { birthDate: birthUTC, age, daysUntilBirthday, hoursUntilBirthday, nextBirthday, zodiacSign, daysLived, dayOfWeek, season, isLeapYear, chineseZodiac, numerology, anagrams, nameInfo, countdown$: this.startCountdown(birthUTC) };
   }
 
@@ -46,43 +42,19 @@ export class BirthdayService {
       J: 1, K: 2, L: 3, M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9,
       S: 1, T: 2, U: 3, V: 4, W: 5, X: 6, Y: 7, Z: 8
     };
-
     let sum = 0;
     for (const letter of letters) {
       sum += letterValues[letter];
     }
-
     while (sum > 9) {
       sum = sum.toString().split('').reduce((acc, num) => acc + parseInt(num, 10), 0);
     }
-
     return sum;
   }
-
   generateAnagrams(name: string): string[] {
     const reversedName = name.split('').reverse().join('');
-    const syllableCoesions = this.getSyllableCoesions(name);
-    return [reversedName, ...syllableCoesions];
+    return [reversedName];
   }
-  getSyllableCoesions(name: string): string[] { 
-    const syllables = name.split(/[^aeiou]/gi).filter(s => s);
-    const coesions: string[] = [];
-
-    const generate = (prefix: string, remaining: string[]) => {
-      if (remaining.length === 0) {
-        coesions.push(prefix);
-      } else {
-        for (let i = 0; i < remaining.length; i++) {
-          generate(prefix + remaining[i], remaining.slice(0, i).concat(remaining.slice(i + 1)));
-        }
-      }
-    };
-
-    generate('', syllables);
-    return coesions;
-  }
-
-
   getNameInfo(name: string): any {
     // Esta função pode ser expandida para buscar informações reais de APIs ou bases de dados
     return {
@@ -90,9 +62,6 @@ export class BirthdayService {
       origin: "Origem do nome"
     };
   }
-
-
-
   getZodiacSign(birthdate: Date): string {
     const month = birthdate.getUTCMonth() + 1;
     const day = birthdate.getUTCDate();
@@ -106,7 +75,6 @@ export class BirthdayService {
     }
     return "";
   }
-
   getSeason(birthdate: Date): string {
     const month = birthdate.getUTCMonth() + 1;
     const day = birthdate.getUTCDate();
@@ -120,22 +88,17 @@ export class BirthdayService {
         return season.name;
       }
     }
-
     return "";
-  }
-
-
+  } 
   isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-  }
-
+  } 
   getChineseZodiac(year: number): string {
     const animals = ['Rato', 'Boi', 'Tigre', 'Coelho', 'Dragão', 'Serpente', 'Cavalo', 'Cabra', 'Macaco', 'Galo', 'Cão', 'Porco'];
     const baseYear = 2000; // 2000 é o ano do Dragão
     const index = (year - baseYear + 4) % 12; // Ajusta o índice para alinhar com o ano do Dragão
     return animals[(index + 12) % 12]; // Adiciona 12 para garantir um índice positivo
-  }
-
+  } 
   startCountdown(birthdate: Date): Observable<string> {
     return interval(1000).pipe(
       map(() => {

@@ -10,19 +10,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerInfoComponent } from './components/server-info/server-info.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs } from '@ng-icons/simple-icons';
+import { HoroscopeComponent } from './components/horoscope/horoscope.component'; 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
     BirthdayFormComponent,
-    ServerInfoComponent
+    ServerInfoComponent,
+    HoroscopeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule, 
     BrowserAnimationsModule,    
-    NgIconsModule.withIcons({ simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs })
-
+    NgIconsModule.withIcons({ simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs }), 
+    HttpClientModule   
   ],
   providers: [
     provideClientHydration(),
