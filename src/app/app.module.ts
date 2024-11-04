@@ -12,6 +12,10 @@ import { NgIconsModule } from '@ng-icons/core';
 import { simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs } from '@ng-icons/simple-icons';
 import { HoroscopeComponent } from './components/horoscope/horoscope.component'; 
 import { HttpClientModule } from '@angular/common/http';
+import { BirthdateInfoService } from './services/birthdateinfoservice.service';
+import { ZodiacService } from './services/zodiac.service';
+import { NameService } from './services/name.service';
+import { BirthDateService } from './services/birthdate.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule   
   ],
   providers: [
+    BirthdateInfoService,
+    ZodiacService,
+    NameService,
+    BirthDateService,
     provideClientHydration(),
     provideAnimationsAsync()
   ],

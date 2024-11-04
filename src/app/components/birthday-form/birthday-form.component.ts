@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { BirthdayService } from '../../services/birthday.service';
+import { BirthdateInfoService } from '../../services/birthdateinfoservice.service';
 
 @Component({
   selector: 'app-birthday-form',
@@ -15,7 +15,7 @@ export class BirthdayFormComponent implements OnInit {
   currentYear: number;
   appVersion: string;
 
-  constructor(private readonly fb: FormBuilder, private readonly birthdayService: BirthdayService) {
+  constructor(private readonly fb: FormBuilder, private readonly birthdayService: BirthdateInfoService) {
     this.birthdayForm = this.fb.group({
       name: [''],
       birthdate: ['']

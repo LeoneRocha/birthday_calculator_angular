@@ -1,36 +1,33 @@
-import { TestBed } from '@angular/core/testing';
-import { BirthdayService } from './birthday.service';
+import { ZodiacService } from './zodiac.service'; 
 
-describe('BirthdayService', () => {
-  let service: BirthdayService;
+describe('ZodiacService', () => {
+  let service: ZodiacService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(BirthdayService);
+    service = new ZodiacService();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should calculate age correctly', () => {
-    const result = service.calculateAgeAndBirthday('John Doe', new Date(Date.UTC(2001, 1, 1)));
-    expect(result.age).toBe(new Date().getUTCFullYear() - 2001);
+  it('should return correct zodiac sign', () => {
+    const birthdate = new Date(Date.UTC(1990, 2, 21)); // 21 de março de 1990
+    const zodiacSign = service.getZodiacSign(birthdate);
+    expect(zodiacSign).toBe('Áries'); // Supondo que 21 de março seja Áries em ZodiacSignsConst
+  }); 
+
+  it('should return correct Chinese zodiac', () => {
+    const year = 1990;
+    const chineseZodiac = service.getChineseZodiac(year);
+    expect(chineseZodiac).toBe('Cavalo'); // 1990 é o ano do Cavalo
   });
 
-  it('should generate reversed name anagram', () => {
-    const anagrams = service.generateAnagrams('John');
-    expect(anagrams).toContain('nhoJ');
-  });
- 
-
-  it('should return name info', () => {
-    const nameInfo = service.getNameInfo('John');
-    expect(nameInfo).toEqual({
-      meaning: 'Significado do nome',
-      origin: 'Origem do nome'
-    });
-  });
+  it('should return correct Chinese zodiac for base year', () => {
+    const year = 2000;
+    const chineseZodiac = service.getChineseZodiac(year);
+    expect(chineseZodiac).toBe('Dragão'); // 2000 é o ano do Dragão
+  }); 
 
   it('should return correct zodiac sign for a given date', () => {
     expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 0, 21)))).toBe('Aquário');
@@ -44,21 +41,7 @@ describe('BirthdayService', () => {
     expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 8, 23)))).toBe('Libra');
     expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 9, 23)))).toBe('Escorpião');
     expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 10, 22)))).toBe('Sagitário');
-    expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 11, 22)))).toBe('Capricórnio'); 
-  });
-
-  it('should return correct season for a given date', () => {
-    expect(service.getSeason(new Date(Date.UTC(2000, 11, 21)))).toBe('Verão'); 
-    expect(service.getSeason(new Date(Date.UTC(2000, 2, 21)))).toBe('Outono');
-    expect(service.getSeason(new Date(Date.UTC(2000, 5, 21)))).toBe('Inverno');
-    expect(service.getSeason(new Date(Date.UTC(2000, 8, 23)))).toBe('Primavera');
-  });
-
-  it('should correctly identify leap years', () => {
-    expect(service.isLeapYear(2000)).toBe(true);
-    expect(service.isLeapYear(1900)).toBe(false);
-    expect(service.isLeapYear(2004)).toBe(true);
-    expect(service.isLeapYear(2001)).toBe(false);
+    expect(service.getZodiacSign(new Date(Date.UTC(new Date().getUTCFullYear(), 11, 22)))).toBe('Capricórnio');
   });
 
   it('should return correct Chinese zodiac sign for a given year', () => {
@@ -67,5 +50,6 @@ describe('BirthdayService', () => {
     expect(service.getChineseZodiac(2002)).toBe('Cavalo');
     expect(service.getChineseZodiac(2003)).toBe('Cabra');
     expect(service.getChineseZodiac(2004)).toBe('Macaco');
-  }); 
+  });
+
 });

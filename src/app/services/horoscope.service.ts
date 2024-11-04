@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable } from 'rxjs'; 
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +8,7 @@ export class HoroscopeService {
 
   private apiUrl = 'https://aztro.sameerkumar.website/?sign=';
 
-  private signsMap : any = {
+  private signsMap: any = {
     'Aquário': 'aquarius',
     'Peixes': 'pisces',
     'Áries': 'aries',
@@ -27,12 +26,12 @@ export class HoroscopeService {
   constructor(private http: HttpClient) { }
 
   getHoroscope(sign: string, day: string = 'today'): Observable<any> {
-    const englishSign : String = this.signsMap[sign];
+    const englishSign: String = this.signsMap[sign];
 
 
     if (!englishSign) {
       throw new Error(`Signo não encontrado: ${sign}`);
     }
     return this.http.post(`${this.apiUrl}${englishSign}&day=${day}`, {});
-  }
+  } 
 }
