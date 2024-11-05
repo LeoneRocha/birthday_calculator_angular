@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HoroscopeService {
-  private apiUrl = 'https://aztro.sameerkumar.website/?sign=';
-  private signsMap: any = {
+  private readonly apiUrl = 'https://aztro.sameerkumar.website/?sign=';
+  private readonly signsMap: any = {
     'Aquário': 'aquarius',
     'Peixes': 'pisces',
     'Áries': 'aries',
@@ -20,9 +20,9 @@ export class HoroscopeService {
     'Sagitário': 'sagittarius',
     'Capricórnio': 'capricorn'
   };
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
   getHoroscope(sign: string, day: string = 'today'): Observable<any> {
-    const englishSign: String = this.signsMap[sign];
+    const englishSign: string = this.signsMap[sign];
     if (!englishSign) {
       throw new Error(`Signo não encontrado: ${sign}`);
     }

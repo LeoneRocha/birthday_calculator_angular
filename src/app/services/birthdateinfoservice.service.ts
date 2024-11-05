@@ -9,9 +9,9 @@ import { BirthDateService } from './birthdate.service';
 export class BirthdateInfoService {
 
   constructor(
-    private zodiacService: ZodiacService,
-    private nameService: NameService,
-    private birthdateService: BirthDateService
+    private readonly zodiacService: ZodiacService,
+    private readonly nameService: NameService,
+    private readonly birthdateService: BirthDateService
   ) {
   }
   calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
