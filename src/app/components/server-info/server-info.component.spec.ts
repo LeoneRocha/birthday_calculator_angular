@@ -10,13 +10,12 @@ describe('ServerInfoComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ServerInfoComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ServerInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

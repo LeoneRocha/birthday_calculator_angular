@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './server-info.component.scss'
 })
 export class ServerInfoComponent {
-//https://devicon.dev/
+  //https://devicon.dev/
 }

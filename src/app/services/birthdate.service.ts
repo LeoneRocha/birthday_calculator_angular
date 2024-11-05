@@ -66,26 +66,20 @@ export class BirthDateService {
     const birthUTC = this.getDateUTC(birthdate);
     // Cria a data do próximo aniversário no ano atual
     let nextBirthday = new Date(Date.UTC(todayUTC.getUTCFullYear(), birthUTC.getUTCMonth(), birthUTC.getUTCDate() + 1));
-
     // Se a data de hoje for maior ou igual ao próximo aniversário, ajusta para o próximo ano
     if (todayUTC >= nextBirthday) {
       nextBirthday.setUTCFullYear(todayUTC.getUTCFullYear() + 1);
     }
-
     // Ajusta a data para garantir que não haja problemas de fuso horário
     nextBirthday.setUTCHours(0, 0, 0, 0);
-    //nextBirthday.setUTCDate(nextBirthday.getUTCDate() + 1);
-
     return nextBirthday;
   }
-
   calculateAge(birthdate: Date): number {
     const todayUTC = this.getTodayUTC();
     const birthUTC = this.getDateUTC(birthdate);
     let age = todayUTC.getUTCFullYear() - birthUTC.getUTCFullYear();
     return age;
   }
-
   getDateForm(birthdate: any): Date {
     // Verifica se birthdate é uma instância de Date, caso contrário, converte
     let birth: Date;

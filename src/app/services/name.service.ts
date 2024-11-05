@@ -15,12 +15,10 @@ export class NameService {
     }
     return sum;
   }
-
   generateAnagrams(name: string): string[] {
     const reversedName = name.split('').reverse().join('');
     return [reversedName];
   }
-
   getNameInfo(name: string): any {
     return {
       meaning: "Significado do nome",

@@ -1,7 +1,6 @@
 import { ZodiacSignsConst } from "../constants/ZodiacSignsConst";
 
-export class ZodiacService {
-  
+export class ZodiacService {  
   getZodiacSign(birthdate: Date): string {
     const month = birthdate.getUTCMonth() + 1;
     const day = birthdate.getUTCDate();

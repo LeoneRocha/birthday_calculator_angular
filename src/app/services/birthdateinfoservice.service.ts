@@ -14,14 +14,12 @@ export class BirthdateInfoService {
     private birthdateService: BirthDateService
   ) {
   }
-
   calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
     // Verifica se birthdate é uma instância de Date, caso contrário, converte
     let birthUTC = this.birthdateService.getDateForm(birthdate);  
     if (birthUTC === undefined) {
       throw new Error('Invalid birthdate');
-    }
-    
+    }    
     const today = this.birthdateService.getTodayUTC(); 
     const age = this.birthdateService.calculateAge(birthUTC);
     const nextBirthday = this.birthdateService.calculateNextBirthday(birthUTC);

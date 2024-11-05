@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HoroscopeService } from '../../services/horoscope.service';
-
 @Component({
   selector: 'app-horoscope',
   templateUrl: './horoscope.component.html',
@@ -8,11 +7,8 @@ import { HoroscopeService } from '../../services/horoscope.service';
 })
 export class HoroscopeComponent implements OnInit {
   @Input() sign: string = '';
-  horoscope: any;
-  
-
+  horoscope: any; 
   constructor(private readonly horoscopeService: HoroscopeService) { }
-
   ngOnInit() {
     this.horoscopeService.getHoroscope(this.sign).subscribe(data => {
       this.horoscope = data;
