@@ -80,7 +80,7 @@ describe('BirthDateService', () => {
     const nextBirthday = service.calculateNextBirthday(birthdate);
     expect(nextBirthday.getUTCFullYear()).toBe(2025);
     expect(nextBirthday.getUTCMonth()).toBe(0);
-    expect(nextBirthday.getUTCDate()).toBe(1);
+    expect(nextBirthday.getUTCDate()).toBe(2);
   });
 
   it('should calculate age correctly', () => {

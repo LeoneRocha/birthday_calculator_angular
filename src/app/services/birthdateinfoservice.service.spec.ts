@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'; 
+import { TestBed } from '@angular/core/testing';
 import { NameService } from './name.service';
 import { ZodiacService } from './zodiac.service';
 import { BirthDateService } from './birthdate.service';
@@ -25,6 +25,7 @@ describe('BirthdateInfoService', () => {
 
     birthdateService = {
       getTodayUTC: jest.fn(),
+      getDateForm: jest.fn(),
       getDateUTC: jest.fn(),
       calculateAge: jest.fn(),
       calculateNextBirthday: jest.fn(),
@@ -54,6 +55,7 @@ describe('BirthdateInfoService', () => {
     const birthdate = '1990-01-01';
     const birthUTC = new Date(Date.UTC(1990, 0, 1));
 
+    birthdateService.getDateForm.mockReturnValue(birthUTC);
     birthdateService.getTodayUTC.mockReturnValue(new Date(Date.UTC(2024, 10, 4)));
     birthdateService.getDateUTC.mockReturnValue(birthUTC);
     birthdateService.calculateAge.mockReturnValue(34);

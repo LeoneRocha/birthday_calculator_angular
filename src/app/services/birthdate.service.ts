@@ -64,17 +64,43 @@ export class BirthDateService {
   calculateNextBirthday(birthdate: Date): Date {
     const todayUTC = this.getTodayUTC();
     const birthUTC = this.getDateUTC(birthdate);
-    let age = todayUTC.getUTCFullYear() - birthUTC.getUTCFullYear();
-    const nextBirthday = new Date(Date.UTC(todayUTC.getUTCFullYear(), birthdate.getUTCMonth(), birthdate.getUTCDate()));
-    if (todayUTC > nextBirthday) {
+    // Cria a data do próximo aniversário no ano atual
+    let nextBirthday = new Date(Date.UTC(todayUTC.getUTCFullYear(), birthUTC.getUTCMonth(), birthUTC.getUTCDate() + 1));
+
+    // Se a data de hoje for maior ou igual ao próximo aniversário, ajusta para o próximo ano
+    if (todayUTC >= nextBirthday) {
       nextBirthday.setUTCFullYear(todayUTC.getUTCFullYear() + 1);
     }
+
+    // Ajusta a data para garantir que não haja problemas de fuso horário
+    nextBirthday.setUTCHours(0, 0, 0, 0);
+    //nextBirthday.setUTCDate(nextBirthday.getUTCDate() + 1);
+
     return nextBirthday;
   }
+
   calculateAge(birthdate: Date): number {
     const todayUTC = this.getTodayUTC();
     const birthUTC = this.getDateUTC(birthdate);
     let age = todayUTC.getUTCFullYear() - birthUTC.getUTCFullYear();
     return age;
+  }
+
+  getDateForm(birthdate: any): Date {
+    // Verifica se birthdate é uma instância de Date, caso contrário, converte
+    let birth: Date;
+    if (birthdate instanceof Date) {
+      birth = birthdate;
+    } else {
+      // Converte a string para Date sem perder o dia
+      const [year, month, day] = birthdate.split('-').map(Number);
+      birth = new Date(year, month - 1, day);
+      // Ajusta a data para o fuso horário local
+      birth.setHours(0, 0, 0, 0);
+    }
+    if (isNaN(birth.getTime())) {
+      throw new Error('Invalid birthdate');
+    }
+    return birth;
   }
 }

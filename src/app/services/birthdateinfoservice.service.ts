@@ -17,12 +17,12 @@ export class BirthdateInfoService {
 
   calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
     // Verifica se birthdate é uma instância de Date, caso contrário, converte
-    const birth = birthdate instanceof Date ? birthdate : new Date(birthdate);
-    if (isNaN(birth.getTime())) {
+    let birthUTC = this.birthdateService.getDateForm(birthdate);  
+    if (birthUTC === undefined) {
       throw new Error('Invalid birthdate');
     }
-    const today = this.birthdateService.getTodayUTC();
-    const birthUTC = this.birthdateService.getDateUTC(birth);
+    
+    const today = this.birthdateService.getTodayUTC(); 
     const age = this.birthdateService.calculateAge(birthUTC);
     const nextBirthday = this.birthdateService.calculateNextBirthday(birthUTC);
     const daysUntilBirthday = this.birthdateService.calculateDaysUntilBirthday(today, nextBirthday);
