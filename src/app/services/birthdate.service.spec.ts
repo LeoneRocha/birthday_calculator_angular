@@ -77,4 +77,45 @@ describe('BirthDateService', () => {
     const age = service.calculateAge(birthdate);
     expect(age).toBe(34);
   });
+  it("should return a Date instance when the input is already a Date", () => {
+    const dateInput = new Date(1990, 3, 25);
+    const result = service.getDateForm(dateInput);
+    expect(result).toBeInstanceOf(Date);
+    expect(result.getTime()).toEqual(dateInput.getTime());
+  });
+
+  it("should convert a valid date string to a Date instance", () => {
+    const dateString = "1990-04-25";
+    const result = service.getDateForm(dateString);
+    expect(result).toBeInstanceOf(Date);
+    expect(result.getFullYear()).toBe(1990);
+    expect(result.getMonth()).toBe(3); // Month is zero-based
+    expect(result.getDate()).toBe(25);
+  });
+
+  it("should throw an error for an invalid date string", () => {
+    const invalidDateString = "invalid-date";
+    expect(() => service.getDateForm(invalidDateString)).toThrowError(
+      "Invalid birthdate"
+    );
+  });
+
+  it("should convert a date string with different delimiters to a Date instance", () => {
+    const dateString = "1990/04/25";
+    const result = service.getDateForm(dateString.split("/").join("-")); // Convert to the expected format
+    expect(result).toBeInstanceOf(Date);
+    expect(result.getFullYear()).toBe(1990);
+    expect(result.getMonth()).toBe(3);
+    expect(result.getDate()).toBe(25);
+  });
+
+  it("should set the hours to 0 for the given date", () => {
+    const dateString = "1990-04-25";
+    const result = service.getDateForm(dateString);
+    expect(result.getHours()).toBe(0);
+    expect(result.getMinutes()).toBe(0);
+    expect(result.getSeconds()).toBe(0);
+    expect(result.getMilliseconds()).toBe(0);
+  });
+  
 });
