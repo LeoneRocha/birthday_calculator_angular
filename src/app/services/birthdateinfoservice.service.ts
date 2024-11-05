@@ -16,11 +16,11 @@ export class BirthdateInfoService {
   }
   calculateAgeAndBirthday(name: string, birthdate: Date | string): any {
     // Verifica se birthdate é uma instância de Date, caso contrário, converte
-    let birthUTC = this.birthdateService.getDateForm(birthdate);  
+    let birthUTC = this.birthdateService.getDateForm(birthdate);
     if (birthUTC === undefined) {
       throw new Error('Invalid birthdate');
-    }    
-    const today = this.birthdateService.getTodayUTC(); 
+    }
+    const today = this.birthdateService.getTodayUTC();
     const age = this.birthdateService.calculateAge(birthUTC);
     const nextBirthday = this.birthdateService.calculateNextBirthday(birthUTC);
     const daysUntilBirthday = this.birthdateService.calculateDaysUntilBirthday(today, nextBirthday);
@@ -33,7 +33,28 @@ export class BirthdateInfoService {
     const zodiacSign = this.zodiacService.getZodiacSign(birthUTC);
     const numerology = this.nameService.calculateNumerology(name);
     const anagrams = this.nameService.generateAnagrams(name);
-    const nameInfo = this.nameService.getNameInfo(name);
-    return { birthDate: birthUTC, age, daysUntilBirthday, hoursUntilBirthday, nextBirthday, zodiacSign, daysLived, dayOfWeek, season, isLeapYear, chineseZodiac, numerology, anagrams, nameInfo, countdown$: this.birthdateService.startCountdown(birthUTC) };
-  }
+    const nameInfo = this.nameService.getNameInfo(name); 
+    const zodiacData = this.zodiacService.fetchZodiac(birthUTC);    
+    const signColor = zodiacData.signColor;
+    const signElement = zodiacData.signElement;
+    return {
+      birthDate: birthUTC,
+      age,
+      daysUntilBirthday,
+      hoursUntilBirthday,
+      nextBirthday,
+      zodiacSign,
+      daysLived,
+      dayOfWeek,
+      season,
+      isLeapYear,
+      chineseZodiac,
+      numerology,
+      anagrams,
+      nameInfo,
+      countdown$: this.birthdateService.startCountdown(birthUTC), 
+      signColor,
+      signElement
+    };
+  } 
 }

@@ -4,6 +4,7 @@ import { ZodiacService } from './zodiac.service';
 import { BirthDateService } from './birthdate.service';
 import { of } from 'rxjs';
 import { BirthdateInfoService } from './birthdateinfoservice.service';
+import { SIGN_COLORS, SIGN_ELEMENTS } from '../constants/ZodiacSignsConst';
 
 describe('BirthdateInfoService', () => {
   let service: BirthdateInfoService;
@@ -20,7 +21,8 @@ describe('BirthdateInfoService', () => {
 
     zodiacService = {
       getChineseZodiac: jest.fn(),
-      getZodiacSign: jest.fn()
+      getZodiacSign: jest.fn(),
+      fetchZodiac: jest.fn(),
     } as jest.Mocked<ZodiacService>;
 
     birthdateService = {
@@ -73,6 +75,8 @@ describe('BirthdateInfoService', () => {
     nameService.getNameInfo.mockReturnValue({ meaning: 'Significado do nome', origin: 'Origem do nome' });
     birthdateService.startCountdown.mockReturnValue(of('0d 0h 0m 0s'));
 
+    zodiacService.fetchZodiac.mockReturnValue({ signColor: SIGN_COLORS["Capricórnio"], signElement: SIGN_ELEMENTS["Capricórnio"] });
+
     const result = service.calculateAgeAndBirthday(name, birthdate);
 
     expect(result).toEqual({
@@ -90,7 +94,9 @@ describe('BirthdateInfoService', () => {
       numerology: 7,
       anagrams: ['eoD nhoJ'],
       nameInfo: { meaning: 'Significado do nome', origin: 'Origem do nome' },
-      countdown$: expect.anything()
+      countdown$: expect.anything(),
+      signColor: SIGN_COLORS["Capricórnio"],
+      signElement: SIGN_ELEMENTS["Capricórnio"],
     });
   });
 });

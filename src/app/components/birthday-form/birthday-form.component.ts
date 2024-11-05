@@ -21,7 +21,7 @@ export class BirthdayFormComponent implements OnInit {
       birthdate: ['']
     });
     this.currentYear = new Date().getFullYear();
-    this.appVersion = '2024.11.04.21'; // Certifique-se de que a versão correta seja atribuída aqui
+    this.appVersion = '2024.11.05.01'; // Certifique-se de que a versão correta seja atribuída aqui
   }
   ngOnInit(): void {
     console.log('called OnInit');

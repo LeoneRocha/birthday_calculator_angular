@@ -1,3 +1,4 @@
+import { SIGN_COLORS, SIGN_ELEMENTS } from '../constants/ZodiacSignsConst';
 import { ZodiacService } from './zodiac.service'; 
 
 describe('ZodiacService', () => {
@@ -43,5 +44,11 @@ describe('ZodiacService', () => {
     expect(service.getChineseZodiac(2002)).toBe('Cavalo');
     expect(service.getChineseZodiac(2003)).toBe('Cabra');
     expect(service.getChineseZodiac(2004)).toBe('Macaco');
+  });
+  it('should fetch zodiac information correctly', () => {
+    const birthdate = new Date(Date.UTC(1990, 3, 15)); // Abril é o mês 3 (0-indexado)
+    const result = service.fetchZodiac(birthdate); 
+    expect(result.signColor).toBe(SIGN_COLORS['Áries']);
+    expect(result.signElement).toBe(SIGN_ELEMENTS['Áries']); 
   });
 });

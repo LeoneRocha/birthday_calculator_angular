@@ -1,4 +1,4 @@
-import { IZodiacSign, Season } from "../interfaces/IZodiacSign";
+import { IZodiacSign, Season, SignInfo } from "../interfaces/IZodiacSign";
 
 export const ZodiacSignsConst: IZodiacSign[] = [
   { name: "Aquário", startMonth: 1, startDay: 20, endMonth: 2, endDay: 18 },
@@ -26,3 +26,15 @@ export const SeasonsConst: Season[] = [
   { name: "Inverno", startMonth: 6, startDay: 21, endMonth: 9, endDay: 22 },
   { name: "Primavera", startMonth: 9, startDay: 23, endMonth: 12, endDay: 20 },
 ];
+ 
+export const SIGN_COLORS: SignInfo = {
+  'Aquário': 'Azul', 'Peixes': 'Verde', 'Áries': 'Vermelho', 'Touro': 'Rosa',
+  'Gêmeos': 'Amarelo', 'Câncer': 'Branco', 'Leão': 'Dourado', 'Virgem': 'Marrom',
+  'Libra': 'Rosa', 'Escorpião': 'Preto', 'Sagitário': 'Roxo', 'Capricórnio': 'Cinza'
+};
+
+export const SIGN_ELEMENTS: SignInfo = {
+  'Aquário': 'Ar', 'Peixes': 'Água', 'Áries': 'Fogo', 'Touro': 'Terra',
+  'Gêmeos': 'Ar', 'Câncer': 'Água', 'Leão': 'Fogo', 'Virgem': 'Terra',
+  'Libra': 'Ar', 'Escorpião': 'Água', 'Sagitário': 'Fogo', 'Capricórnio': 'Terra'
+};

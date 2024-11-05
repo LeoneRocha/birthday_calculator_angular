@@ -1,39 +1,55 @@
 <div class="container mt-5">
+  <!-- Header -->
+  <header class="bg-secondary text-white text-center py-3 mb-4">
+    <div class="container">
+      <h1 class="display-4">Calculadora de Informações Pessoais</h1>
+      <p class="lead">
+        Obtenha várias informações sobre sua data de nascimento
+      </p>
+    </div>
+  </header>
+
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <h1>Calculadora de Informações Pessoais</h1>
-      <p>Utilize este formulário para obter várias informações sobre sua data de nascimento, como idade, signo, estação
-        do ano, entre outras.</p>
+      <p>
+        Utilize este formulário para obter várias informações sobre sua data de
+        nascimento, como idade, signo, estação do ano, entre outras.
+      </p>
 
       <form [formGroup]="birthdayForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Nome:</label>
-          <input id="name" class="form-control" formControlName="name" required>
+          <input id="name" class="form-control" formControlName="name" required />
         </div>
         <div class="form-group">
           <label for="birthdate">Data de Nascimento:</label>
-          <input id="birthdate" type="date" class="form-control" formControlName="birthdate" required>
+          <input id="birthdate" type="date" class="form-control" formControlName="birthdate" required />
         </div>
-        <button type="submit" class="btn btn-primary btn-block mt-3">Calcular</button>
+        <button type="submit" class="btn btn-dark btn-block mt-3" [disabled]="!birthdayForm.valid">
+          Calcular
+        </button>
       </form>
 
       <div *ngIf="result" class="mt-4">
         <p><strong>Idade:</strong> {{ result.age }} anos</p>
         <p><strong>Contagem Regressiva:</strong> {{ countdown$ | async }}</p>
-        <p><strong>Dias até o próximo aniversário:</strong> {{ result.daysUntilBirthday }}</p>
-        <p><strong>Horas até o próximo aniversário:</strong> {{ result.hoursUntilBirthday }}</p>
-        <p><strong>Próximo Aniversário:</strong> {{ result.nextBirthday | date: 'dd/MM/yyyy' }}</p>
+        <p>
+          <strong>Próximo Aniversário:</strong>
+          {{ result.nextBirthday | date: 'dd/MM/yyyy' }}
+        </p>
         <p><strong>Signo:</strong> {{ result.zodiacSign }}</p>
         <p><strong>Dias Vividos:</strong> {{ result.daysLived }}</p>
         <p><strong>Dia da Semana:</strong> {{ result.dayOfWeek }}</p>
         <p><strong>Estação do Ano:</strong> {{ result.season }}</p>
-        <p><strong>Ano Bissexto:</strong> {{ result.isLeapYear ? 'Sim' : 'Não' }}</p>
+        <p>
+          <strong>Ano Bissexto:</strong> {{ result.isLeapYear ? 'Sim' : 'Não' }}
+        </p>
         <p><strong>Horóscopo Chinês:</strong> {{ result.chineseZodiac }}</p>
         <p><strong>Numerologia:</strong> {{ result.numerology }}</p>
         <p><strong>Anagramas:</strong> {{ result.anagrams.join(', ') }}</p>
-        <p><strong>Informações do Nome:</strong> {{ result.nameInfo.origin }}</p>
+        <p><strong>Cor do Signo:</strong> {{ result.signColor }}</p> 
+        <p><strong>Elemento do Signo:</strong> {{ result.signElement }}</p>
       </div>
-
       <!-- Adicione o componente HoroscopeComponent aqui -->
       <app-horoscope *ngIf="result" [sign]="result.zodiacSign"></app-horoscope>
     </div>
@@ -44,6 +60,9 @@
     </div>
   </div>
   <footer class="text-center mt-5">
-    <p><strong>©</strong>{{ currentYear }} -<strong> Versão:</strong> {{ appVersion }}</p>
+    <p>
+      <strong>©</strong>{{ currentYear }} -<strong> Versão:</strong>
+      {{ appVersion }}
+    </p>
   </footer>
 </div>
