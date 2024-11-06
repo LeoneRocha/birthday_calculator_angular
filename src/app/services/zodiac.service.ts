@@ -19,8 +19,7 @@ export class ZodiacService {
     const baseYear = 2000; // 2000 é o ano do Dragão
     const index = (year - baseYear + 4) % 12; // Ajusta o índice para alinhar com o ano do Dragão
     return animals[(index + 12) % 12]; // Adiciona 12 para garantir um índice positivo
-  }
-  //TODO:TESTE
+  } 
   fetchZodiac(birthdate: Date): any {
     const zodiacsign = this.getZodiacSign(birthdate);
     return {

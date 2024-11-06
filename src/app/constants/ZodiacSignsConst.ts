@@ -38,3 +38,18 @@ export const SIGN_ELEMENTS: SignInfo = {
   'Gêmeos': 'Ar', 'Câncer': 'Água', 'Leão': 'Fogo', 'Virgem': 'Terra',
   'Libra': 'Ar', 'Escorpião': 'Água', 'Sagitário': 'Fogo', 'Capricórnio': 'Terra'
 };
+
+export const SignsMapConst: SignInfo = {
+  'Aquário': 'aquarius',
+  'Peixes': 'pisces',
+  'Áries': 'aries',
+  'Touro': 'taurus',
+  'Gêmeos': 'gemini',
+  'Câncer': 'cancer',
+  'Leão': 'leo',
+  'Virgem': 'virgo',
+  'Libra': 'libra',
+  'Escorpião': 'scorpio',
+  'Sagitário': 'sagittarius',
+  'Capricórnio': 'capricorn'
+};
