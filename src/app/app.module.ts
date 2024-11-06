@@ -11,7 +11,7 @@ import { ServerInfoComponent } from './components/server-info/server-info.compon
 import { NgIconsModule } from '@ng-icons/core';
 import { simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs } from '@ng-icons/simple-icons';
 import { HoroscopeComponent } from './components/horoscope/horoscope.component'; 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { BirthdateInfoService } from './services/birthdateinfoservice.service';
 import { ZodiacService } from './services/zodiac.service';
 import { NameService } from './services/name.service';
@@ -30,7 +30,7 @@ import { BirthDateService } from './services/birthdate.service';
     ReactiveFormsModule, 
     BrowserAnimationsModule,    
     NgIconsModule.withIcons({ simpleAngular, simpleTypescript, simpleJest, simpleNodedotjs }), 
-    HttpClientModule   
+        
   ],
   providers: [
     BirthdateInfoService,
@@ -38,7 +38,8 @@ import { BirthDateService } from './services/birthdate.service';
     NameService,
     BirthDateService,
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(),
   ],
   bootstrap: [AppComponent]
 })
