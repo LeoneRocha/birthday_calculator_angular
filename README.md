@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
 
-LINK: [GO LIVE](https://birthdaycalculator-aycydmf3grdddefq.brazilsouth-01.azurewebsites.net) 
+LINK: [GO LIVE](https://birthdaycalculator-aycydmf3grdddefq.brazilsouth-01.azurewebsites.net)  
 
 ## Development server
 
